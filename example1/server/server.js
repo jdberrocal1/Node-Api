@@ -27,6 +27,22 @@ app.post('/lions', function(req, res){
 	res.json(lion);
 });
 
+app.put('/lions/:id',function(req,res){
+	var update = req.body;
+	if(update.id){
+		delete update.id;
+	}
+	var lion = _.findIndex(lions,{id:req.params.id});
+	if(!lions[lion]){
+		res.send();
+	}
+	else{
+		var updatedLion = _.assign(lions[lion],update);
+		res.json(updatedLion);
+	}
+
+});
+
 var port = 3000;
 
 app.listen(port,function(){
