@@ -10,8 +10,26 @@ describe('[LIONS]',function () {
 			.expect('Content-Type',/json/)
 			.expect(200)
 			.end(function(err, resp){
-				chaicls(resp.body).to.be.an('array');
+				chai(resp.body).to.be.an('array');
 				done();
 			})
 	});
+	it('should create a lion',function (done) {
+		var lion = {
+			name:'Mufasa',
+			age:'10',
+			pride:'Evil Lions',
+			gender: 'male'
+		};
+		request(app)
+			.post('/lions')
+			.send(lion)
+			.set('Accept', 'applicaton/json')
+			.expect('Content-Type',/json/)
+			.expect(200)
+			.end(function(err, resp){
+				chai(resp.body).to.be.an('object');
+				done();
+			})
+	})
 });
